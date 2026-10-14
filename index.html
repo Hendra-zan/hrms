@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HRMS Pro - Sistem Informasi SDM RSU Meloy</title>
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="alternate icon" type="image/png" href="/pwa-icon.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="HRMS Pro">
+    <link rel="apple-touch-icon" href="/pwa-icon.png">
+    <link rel="stylesheet" href="/index.css">
+</head>
+<body class="bg-light font-sans antialiased">
+    <div id="root"></div>
+    <script>
+      // Automatic Chunk Load Error Handler: Clears stale PWA Service Worker cache & reloads page on 404 JS asset
+      window.addEventListener('error', function (event) {
+        var target = event.target || event.srcElement;
+        var isJsChunk = target && (target.tagName === 'SCRIPT' || (target.src && target.src.indexOf('.js') !== -1));
+        if (isJsChunk) {
+          console.warn('[AutoRecovery] Stale JS chunk 404 detected. Reloading to fetch latest bundle...');
+          if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function (registrations) {
+              for (var i = 0; i < registrations.length; i++) {
+                registrations[i].unregister();
+              }
+            });
+          }
+          var lastAutoReload = sessionStorage.getItem('last_auto_chunk_reload');
+          var now = Date.now();
+          if (!lastAutoReload || now - Number(lastAutoReload) > 5000) {
+            sessionStorage.setItem('last_auto_chunk_reload', String(now));
+            window.location.reload(true);
+          }
+        }
+      }, true);
+
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then(reg => console.log('PWA Service Worker registered'))
+            .catch(err => console.error('PWA Service Worker registration failed', err));
+        });
+      }
+    </script>
+    <script type="module" src="/index.tsx"></script>
+</body>
+</html>

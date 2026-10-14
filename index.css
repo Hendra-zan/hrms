@@ -1,0 +1,153 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Default Hospital Teal/Green Theme */
+  :root {
+    --color-primary: 6 115 106;       /* #06736a */
+    --color-primary-light: 230 243 242; /* #e6f3f2 */
+    --color-primary-dark: 5 79 70;      /* #054f46 */
+    --color-primary-hover: 8 156 142;   /* #089c8e */
+  }
+
+  /* Royal Indigo Enterprise Theme */
+  .theme-indigo {
+    --color-primary: 79 70 229;         /* #4f46e5 (indigo-500) */
+    --color-primary-light: 224 231 255;   /* #e0e7ff (indigo-50) */
+    --color-primary-dark: 55 48 163;      /* #3730a3 (indigo-700) */
+    --color-primary-hover: 99 102 241;    /* #6366f1 (indigo-400) */
+  }
+
+  /* Emerald Hospital Theme */
+  .theme-emerald {
+    --color-primary: 5 150 105;         /* #059669 (emerald-600) */
+    --color-primary-light: 236 253 245;   /* #ecfdf5 (emerald-50) */
+    --color-primary-dark: 4 120 87;       /* #047857 (emerald-700) */
+    --color-primary-hover: 16 185 129;    /* #10b981 (emerald-500) */
+  }
+
+  /* Turquoise Medis Modern Theme */
+  .theme-turquoise {
+    --color-primary: 11 214 174;         /* #0bd6ae */
+    --color-primary-light: 231 251 247;   /* #e7fbf7 */
+    --color-primary-dark: 6 109 88;       /* #066d58 */
+    --color-primary-hover: 16 226 185;    /* #10e2b9 */
+  }
+
+  /* Dark Theme Contrast Adjustment */
+  .theme-dark {
+    --color-primary: 13 148 136;        /* #0d9488 (teal-600) for higher dark mode contrast */
+    --color-primary-light: 15 23 42;     /* #0f172a (slate-900) */
+    --color-primary-dark: 17 94 89;       /* #115e59 (teal-800) */
+    --color-primary-hover: 20 184 166;    /* #14b8a6 (teal-500) */
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  .animate-slide-in-right {
+    animation: slideInRight 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  /* Portal transition: fires on every portal switch (personal ↔ operational) */
+  .animate-portal-enter {
+    animation: portalEnter 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  /* View transition: lighter fade for in-portal navigation */
+  .animate-view-enter {
+    animation: viewEnter 0.22s ease-out both;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Portal switch: fade + slide from below, more dramatic than view transitions */
+@keyframes portalEnter {
+  from {
+    transform: translateY(18px) scale(0.985);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* In-portal view switch: subtle upward fade */
+@keyframes viewEnter {
+  from {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@layer base {
+  input:not([type='checkbox']):not([type='radio']):not([type='range']),
+  select,
+  textarea {
+    @apply rounded-lg px-4 py-2.5 text-sm shadow-sm transition-all duration-200 ease-out;
+  }
+}
+
+/* Dynamic CSS theme overrides for compiled arbitrary Tailwind classes */
+@layer utilities {
+  .text-\[\#06736a\] { color: rgb(var(--color-primary)) !important; }
+  .bg-\[\#06736a\] { background-color: rgb(var(--color-primary)) !important; }
+  .border-\[\#06736a\] { border-color: rgb(var(--color-primary)) !important; }
+  .focus\:ring-\[\#06736a\]:focus { --tw-ring-color: rgb(var(--color-primary)) !important; }
+  .focus\:border-\[\#06736a\]:focus { border-color: rgb(var(--color-primary)) !important; }
+  .hover\:text-\[\#06736a\]:hover { color: rgb(var(--color-primary-hover)) !important; }
+  .hover\:bg-\[\#06736a\]:hover { background-color: rgb(var(--color-primary-hover)) !important; }
+  .hover\:border-\[\#06736a\]:hover { border-color: rgb(var(--color-primary-hover)) !important; }
+  
+  .bg-\[\#06736a\]\/10 { background-color: rgb(var(--color-primary) / 0.1) !important; }
+  .text-\[\#06736a\]\/90 { color: rgb(var(--color-primary) / 0.9) !important; }
+  .border-\[\#06736a\]\/20 { border-color: rgb(var(--color-primary) / 0.2) !important; }
+  .border-\[\#06736a\]\/30 { border-color: rgb(var(--color-primary) / 0.3) !important; }
+  .focus\:ring-\[\#06736a\]\/10:focus { --tw-ring-color: rgb(var(--color-primary) / 0.1) !important; }
+  .focus\:ring-\[\#06736a\]\/20:focus { --tw-ring-color: rgb(var(--color-primary) / 0.2) !important; }
+
+  .bg-\[\#e6f3f2\] { background-color: rgb(var(--color-primary-light)) !important; }
+  .hover\:bg-\[\#e6f3f2\]:hover { background-color: rgb(var(--color-primary-light)) !important; }
+  .border-\[\#e6f3f2\] { border-color: rgb(var(--color-primary-light)) !important; }
+  .text-\[\#e6f3f2\] { color: rgb(var(--color-primary-light)) !important; }
+
+  .bg-\[\#054f46\] { background-color: rgb(var(--color-primary-dark)) !important; }
+  .hover\:bg-\[\#054f46\]:hover { background-color: rgb(var(--color-primary-dark)) !important; }
+  .text-\[\#054f46\] { color: rgb(var(--color-primary-dark)) !important; }
+
+  .bg-\[\#055f57\] { background-color: rgb(var(--color-primary-dark)) !important; }
+  .hover\:bg-\[\#055f57\]:hover { background-color: rgb(var(--color-primary-dark)) !important; }
+  .text-\[\#055f57\] { color: rgb(var(--color-primary-dark)) !important; }
+
+  .text-\[\#089c8e\] { color: rgb(var(--color-primary-hover)) !important; }
+  .bg-\[\#089c8e\] { background-color: rgb(var(--color-primary-hover)) !important; }
+  .hover\:bg-\[\#089c8e\]:hover { background-color: rgb(var(--color-primary-hover)) !important; }
+}

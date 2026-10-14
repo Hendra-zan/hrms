@@ -1,0 +1,75 @@
+{
+  "expo": {
+    "name": "RS MELOY",
+    "slug": "hrms-absensi",
+    "version": "0.1.15",
+    "scheme": "hrmsabsensi",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "description": "Aplikasi absensi mobile untuk HRMS Pro — check-in/out dengan GPS dan biometrik.",
+    "primaryColor": "#06736a",
+    "splash": {
+      "backgroundColor": "#06736a",
+      "resizeMode": "contain"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Aplikasi memerlukan lokasi untuk mencatat titik absensi Anda."
+        }
+      ],
+      "expo-secure-store",
+      "react-native-fast-tflite"
+    ],
+    "_pluginsForRebuild": [
+      "[CATATAN] Plugin di bawah ini diaktifkan kembali saat melakukan `npx expo prebuild` / `npm run android` (rebuild APK). Saat ini disable agar Metro bisa start tanpa bug ESM resolution dari react-native-vision-camera.",
+      [
+        "react-native-vision-camera",
+        {
+          "cameraPermissionText": "Aplikasi membutuhkan kamera untuk verifikasi wajah saat absensi.",
+          "enableMicrophonePermission": false,
+          "enableFrameProcessors": true
+        }
+      ]
+    ],
+    "android": {
+      "package": "com.hrmsabsensi.mobile",
+      "versionCode": 16,
+      "adaptiveIcon": {
+        "backgroundColor": "#06736a"
+      },
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "INTERNET",
+        "VIBRATE"
+      ],
+      "blockedPermissions": [
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.SYSTEM_ALERT_WINDOW"
+      ]
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.hrmsabsensi.mobile",
+      "buildNumber": "1",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "Aplikasi memerlukan lokasi untuk mencatat titik absensi Anda.",
+        "NSFaceIDUsageDescription": "Aplikasi menggunakan Face ID untuk verifikasi identitas saat absensi.",
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "web": {
+      "bundler": "metro"
+    },
+    "extra": {
+      "privacyPolicyUrl": "https://your-domain.com/privacy",
+      "supportEmail": "support@your-domain.com"
+    }
+  }
+}

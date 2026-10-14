@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panduan Instalasi Aplikasi HRMS Pro - RSU Meloy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --secondary: #0d9488;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --warning-bg: #fef2f2;
+      --warning-border: #fca5a5;
+      --warning-text: #991b1b;
+      --accent-bg: #f0f9ff;
+      --accent-border: #bae6fd;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 16px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      max-width: 640px;
+      width: 100%;
+    }
+
+    .header {
+      text-align: center;
+      padding: 24px 16px 16px;
+      background: linear-gradient(135deg, #0284c7 0%, #0f766e 100%);
+      color: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.25);
+      margin-bottom: 20px;
+    }
+
+    .header-logo {
+      font-size: 36px;
+      margin-bottom: 8px;
+    }
+
+    .header h1 {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+
+    .header p {
+      font-size: 14px;
+      opacity: 0.9;
+      font-weight: 500;
+    }
+
+    .download-cta-top {
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-download {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background-color: #ffffff;
+      color: #0369a1;
+      font-weight: 800;
+      font-size: 16px;
+      padding: 14px 28px;
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+      transition: all 0.2s ease;
+      width: 100%;
+    }
+
+    .btn-download:active {
+      transform: scale(0.98);
+      background-color: #f0f9ff;
+    }
+
+    .wifi-alert {
+      background-color: #fff1f2;
+      border: 2px dashed #f43f5e;
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 20px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .wifi-alert-icon {
+      font-size: 28px;
+      line-height: 1;
+    }
+
+    .wifi-alert-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: #be123c;
+      margin-bottom: 4px;
+    }
+
+    .wifi-alert-text {
+      font-size: 13px;
+      color: #9f1239;
+      line-height: 1.5;
+    }
+
+    .ssid-badge {
+      display: inline-block;
+      background-color: #be123c;
+      color: #ffffff;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 13px;
+      margin: 2px 2px;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 24px 0 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 14px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    }
+
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .step-number {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: white;
+      font-weight: 800;
+      font-size: 14px;
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .step-body {
+      font-size: 13px;
+      color: #334155;
+      padding-left: 44px;
+    }
+
+    .step-body ol, .step-body ul {
+      padding-left: 18px;
+      margin-top: 6px;
+    }
+
+    .step-body li {
+      margin-bottom: 6px;
+    }
+
+    .highlight-box {
+      background-color: #f8fafc;
+      border-left: 3px solid var(--primary);
+      padding: 10px 12px;
+      border-radius: 0 8px 8px 0;
+      margin-top: 8px;
+      font-size: 12px;
+      color: #475569;
+    }
+
+    .trouble-card {
+      background-color: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 10px;
+    }
+
+    .trouble-title {
+      font-weight: 700;
+      font-size: 14px;
+      color: #1e293b;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .trouble-desc {
+      font-size: 13px;
+      color: #475569;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 24px 16px;
+      font-size: 12px;
+      color: var(--text-muted);
+      border-top: 1px solid #e2e8f0;
+      margin-top: 30px;
+    }
+
+    .footer strong {
+      color: var(--text);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- HEADER -->
+    <div class="header">
+      <div class="header-logo">📱</div>
+      <h1>Panduan Instalasi APK HRMS Pro</h1>
+      <p>RSU Meloy Sangatta - Mobile Absensi ESS</p>
+      
+      <div class="download-cta-top">
+        <a href="/downloads/app-release.apk" class="btn-download" download>
+          📥 UNDUH APLIKASI (APK)
+        </a>
+      </div>
+    </div>
+
+    <!-- SYARAT KONEKSI WIFI -->
+    <div class="wifi-alert">
+      <div class="wifi-alert-icon">📶</div>
+      <div>
+        <div class="wifi-alert-title">WAJIB TERHUBUNG KE WI-FI RUMAH SAKIT</div>
+        <div class="wifi-alert-text">
+          Sebelum mengunduh atau membuka aplikasi, pastikan HP Anda sudah terhubung ke salah satu jaringan Wi-Fi RS berikut:
+          <br>
+          <span class="ssid-badge">STAF</span> atau <span class="ssid-badge">Wifi-Medis</span>
+          <br>
+          <em>(Aplikasi tidak dapat diakses menggunakan paket data seluler luar).</em>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">
+      📌 Langkah-Langkah Instalasi Aplikasi
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-number">1</div>
+        <div class="step-title">Sambungkan HP ke Wi-Fi RS</div>
+      </div>
+      <div class="step-body">
+        <ol>
+          <li>Buka <strong>Pengaturan / Settings</strong> di HP Android Anda.</li>
+          <li>Pilih <strong>Wi-Fi</strong> lalu hubungkan ke <span class="ssid-badge">STAF</span> atau <span class="ssid-badge">Wifi-Medis</span>.</li>
+          <li>Pastikan status Wi-Fi sudah <strong>Terhubung (Connected)</strong>.</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-number">2</div>
+        <div class="step-title">Unduh Berkas Aplikasi (APK)</div>
+      </div>
+      <div class="step-body">
+        <p>Ketuk tombol biru di bawah ini untuk mengunduh aplikasi secara langsung:</p>
+        <div style="margin-top: 10px; margin-bottom: 8px;">
+          <a href="/downloads/app-release.apk" class="btn-download" style="background: linear-gradient(135deg, #0284c7 0%, #0f766e 100%); color: white;" download>
+            📥 Unduh File APK (app-release.apk)
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-number">3</div>
+        <div class="step-title">Izinkan Instalasi dari Sumber Tak Dikenal</div>
+      </div>
+      <div class="step-body">
+        <p>Jika muncul peringatan keamanan <em>"Ponsel tidak diizinkan menginstal aplikasi tidak dikenal dari sumber ini"</em>:</p>
+        <ol>
+          <li>Ketuk opsi <strong>Pengaturan / Settings</strong> pada jendela peringatan.</li>
+          <li>Aktifkan tombol <strong>"Izinkan dari sumber ini"</strong> (Allow from this source).</li>
+          <li>Tekan tombol <strong>Kembali (Back ◀️)</strong> pada HP Anda.</li>
+          <li>Ketuk <strong>Instal / Install</strong>.</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-number">4</div>
+        <div class="step-title">Buka Aplikasi & Berikan Izin Akses</div>
+      </div>
+      <div class="step-body">
+        <ul>
+          <li><strong>Izin Lokasi (GPS):</strong> Pilih <em>"Saat Aplikasi Digunakan"</em>.</li>
+          <li><strong>Izin Kamera:</strong> Pilih <em>"Izinkan / Allow"</em> (digunakan saat selfie presensi).</li>
+          <li><strong>Izin Notifikasi:</strong> Pilih <em>"Izinkan / Allow"</em>.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- STEP 5 -->
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-number">5</div>
+        <div class="step-title">Login Akun Karyawan</div>
+      </div>
+      <div class="step-body">
+        <p>Masukkan <strong>NIK / Email Karyawan</strong> dan <strong>Kata Sandi</strong> yang telah diberikan oleh Tim HRD RSU Meloy, lalu tekan tombol <strong>Masuk / Login</strong>.</p>
+      </div>
+    </div>
+
+    <div class="section-title">
+      ❓ Solusi Kendala (Troubleshooting)
+    </div>
+
+    <div class="trouble-card">
+      <div class="trouble-title">❌ Gagal Mengunduh / Halaman Error?</div>
+      <div class="trouble-desc">Pastikan Wi-Fi HP Anda terhubung ke <strong>STAF</strong> atau <strong>Wifi-Medis</strong>. Coba matikan sementara Data Seluler HP Anda.</div>
+    </div>
+
+    <div class="trouble-card">
+      <div class="trouble-title">📁 File Terunduh Tapi Tidak Ketemu?</div>
+      <div class="trouble-desc">Buka aplikasi <strong>Pengelola File / File Manager</strong> di HP Anda ➔ Masuk ke folder <strong>Download</strong> ➔ Ketuk file <strong>app-release.apk</strong>.</div>
+    </div>
+
+    <div class="trouble-card">
+      <div class="trouble-title">🔑 Lupa Kata Sandi / Akun Bermasalah?</div>
+      <div class="trouble-desc">Silakan hubungi Sub Bagian Kepegawaian (HRD) atau Tim IT RSU Meloy Sangatta.</div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      <p><strong>Sub Bagian Kepegawaian & Sistem Informasi (IT)</strong></p>
+      <p>RSU Meloy Sangatta &copy; 2026 HRMS Pro</p>
+    </div>
+
+  </div>
+
+</body>
+</html>

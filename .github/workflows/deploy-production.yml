@@ -1,0 +1,61 @@
+name: HRMS Pro Production CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, master, production ]
+  pull_request:
+    branches: [ main, master, production ]
+
+jobs:
+  test-and-build:
+    name: 🧪 Automated Test & Typecheck
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: 📦 Install Dependencies
+        run: npm ci
+
+      - name: 🔍 Typecheck TypeScript
+        run: npm run typecheck
+
+      - name: 🧪 Run Unit & Integration Tests
+        run: npm run test
+
+      - name: 🏗️ Build Vite Bundle
+        run: npm run build
+
+  deploy-production:
+    name: 🚀 Deploy to Production Server
+    needs: test-and-build
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' || github.ref == 'refs/heads/production'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 🔑 Setup SSH Key
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: 📦 Archive Project Files
+        run: |
+          tar -czf hrms-project.tar.gz --exclude="node_modules" --exclude=".git" --exclude=".expo" --exclude="mobile-absensi/node_modules" --exclude="backups" --exclude="logs" --exclude="public/downloads" .
+
+      - name: 📤 Transfer Archive to Server
+        run: |
+          scp -o StrictHostKeyChecking=no hrms-project.tar.gz ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/hrms/
+
+      - name: 🔄 Extract & Deploy Server Application
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "tar -xzf /home/hrms/hrms-project.tar.gz -C /home/hrms/HRMS-Pro/ && rm -f /home/hrms/hrms-project.tar.gz && cd /home/hrms/HRMS-Pro && bash scripts/deploy.sh"

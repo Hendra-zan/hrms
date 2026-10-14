@@ -1,0 +1,140 @@
+# =============================================
+# HRMS-Pro .gitignore
+# =============================================
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependencies
+node_modules
+mobile-absensi/node_modules
+
+# Build outputs
+dist
+dist-ssr
+build/
+mobile-absensi/android/app/build/
+mobile-absensi/android/build/
+mobile-absensi/ios/build/
+
+# =============================================
+# Environment & Secrets (NEVER commit!)
+# =============================================
+.env
+.env.*
+!.env.example
+.env.local
+.env.production
+mobile-absensi/.env
+mobile-absensi/.env.*
+!mobile-absensi/.env.example
+
+# =============================================
+# Mobile - Android
+# =============================================
+mobile-absensi/android/.gradle/
+mobile-absensi/android/local.properties
+mobile-absensi/android/app/release/
+mobile-absensi/android/.idea/
+
+# Mobile keystores (NEVER commit!)
+*.keystore
+*.jks
+!mobile-absensi/android/app/debug.keystore
+
+# =============================================
+# Mobile - iOS
+# =============================================
+mobile-absensi/ios/Pods/
+mobile-absensi/ios/*.xcworkspace
+mobile-absensi/ios/DerivedData/
+*.xcuserstate
+
+# =============================================
+# Mobile - Expo / React Native
+# =============================================
+mobile-absensi/.expo/
+mobile-absensi/.expo-shared/
+mobile-absensi/expo-env.d.ts
+
+# =============================================
+# Database
+# =============================================
+*.backup
+*.backup.gz
+backups/
+db_cluster-*.backup/
+
+# =============================================
+# SSL & Certificates
+# =============================================
+ssl/
+*.pem
+*.key
+*.crt
+
+# =============================================
+# Supabase
+# =============================================
+supabase/.temp/
+supabase/.branches/
+
+# =============================================
+# Test & Coverage
+# =============================================
+coverage/
+playwright-report/
+test-results/
+
+# =============================================
+# Runtime & Uploads
+# =============================================
+uploads/
+*.pid
+
+# =============================================
+# Editor & OS
+# =============================================
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea
+.DS_Store
+Thumbs.db
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# =============================================
+# Misc
+# =============================================
+*.local
+vite-output.log
+
+# Temporary archives & scratch
+*.tar
+*.tar.gz
+*.zip
+public/downloads/*.apk
+scratch/
+data_internal/
+
+
+# Confidential Employee / Import Data
+dokumen import/
+*.xlsx
+*.xls
+*.csv
+
+
+# Database debug scripts
+database/debug/
+

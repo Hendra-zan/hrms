@@ -1,0 +1,77 @@
+import { createClient } from 'redis';
+import { loggingService } from './loggingService.js';
+
+const REDIS_URL = process.env.REDIS_URL || `redis://${process.env.REDIS_HOST || 'localhost'}:${process.env.REDIS_PORT || '6379'}`;
+
+let client;
+let connecting = false;
+
+export const getRedisClient = async () => {
+  if (client && client.isOpen) return client;
+  if (connecting) {
+    // wait until connected
+    let attempts = 0;
+    while (connecting && attempts < 50) {
+      // small sleep
+      // eslint-disable-next-line no-await-in-loop
+      await new Promise(r => setTimeout(r, 100));
+      attempts++;
+    }
+    if (client && client.isOpen) return client;
+  }
+
+  const clientOptions = { 
+    url: REDIS_URL, 
+    disableOfflineQueue: true,
+    socket: {
+      reconnectStrategy: (retries) => {
+        if (retries >= 3) return new Error('Max retries reached');
+        return Math.min(retries * 100, 1000);
+      }
+    }
+  };
+
+  if (process.env.REDIS_PASSWORD && process.env.REDIS_PASSWORD.trim() !== '') {
+    clientOptions.password = process.env.REDIS_PASSWORD.trim();
+  }
+
+  client = createClient(clientOptions);
+  connecting = true;
+  client.on('error', (err) => {
+    loggingService.warn('Redis client notification', { error: err.message || err });
+  });
+  try {
+    await client.connect();
+  } catch (err) {
+    loggingService.error('Failed to connect redis client', { error: err && err.message ? err.message : err });
+  }
+  connecting = false;
+  return (client && client.isOpen) ? client : null;
+};
+
+export const getRedisInfo = async () => {
+  const c = await getRedisClient().catch(() => null);
+  if (!c || !c.isOpen) return null;
+  try {
+    const info = await c.info();
+    const lines = info.split('\n').map(l => l.trim()).filter(Boolean);
+    const stats = {};
+    for (const line of lines) {
+      if (line.startsWith('#')) continue;
+      const [k, v] = line.split(':');
+      if (!k || v === undefined) continue;
+      stats[k] = v;
+    }
+    return {
+      connected_clients: parseInt(stats.connected_clients || '0', 10),
+      used_memory: parseInt(stats.used_memory || '0', 10),
+      total_connections_received: parseInt(stats.total_connections_received || '0', 10),
+      keyspace_hits: parseInt(stats.keyspace_hits || '0', 10),
+      keyspace_misses: parseInt(stats.keyspace_misses || '0', 10),
+    };
+  } catch (err) {
+    return null;
+  }
+};
+
+export default { getRedisClient, getRedisInfo };

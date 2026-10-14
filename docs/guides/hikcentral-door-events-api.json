@@ -1,0 +1,93 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "HikCentral Access Control - Door Events API",
+    "description": "API definition to allow HRMS Pro to query door access control events from HikCentral",
+    "version": "1.0.0"
+  },
+  "host": "127.0.0.1",
+  "basePath": "/artemis",
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/api/acs/v1/door/events": {
+      "post": {
+        "summary": "Search door access control events",
+        "operationId": "searchDoorEvents",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "startTime": {
+                  "type": "string",
+                  "description": "ISO 8601 format start time with timezone offset"
+                },
+                "endTime": {
+                  "type": "string",
+                  "description": "ISO 8601 format end time with timezone offset"
+                },
+                "pageNo": {
+                  "type": "integer",
+                  "default": 1
+                },
+                "pageSize": {
+                  "type": "integer",
+                  "default": 500
+                }
+              },
+              "required": [
+                "startTime",
+                "endTime",
+                "pageNo",
+                "pageSize"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "totalCount": {
+                      "type": "integer"
+                    },
+                    "list": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
